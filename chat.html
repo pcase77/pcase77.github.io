@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ECHO-77 Chat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: black;
+      color: #00ff00;
+      font-family: 'Press Start 2P', monospace;
+      padding: 20px;
+    }
+    select, input, button {
+      font-family: 'Press Start 2P', monospace;
+      background: black;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      margin-top: 10px;
+    }
+    #chatBox {
+      margin-top: 20px;
+    }
+    a {
+      color: #00ff00;
+      display: block;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>ECHO-77 Chat</h1>
+  <label for="mindSelect">Mind Filter:</label>
+  <select id="mindSelect">
+    <option value="Tesla">Nikola Tesla</option>
+    <option value="Jesus">Jesus Christ</option>
+    <option value="Maxwell">Jordan Maxwell</option>
+    <option value="Rogan">Joe Rogan</option>
+    <option value="Jones">Alex Jones</option>
+    <option value="Einstein">Albert Einstein</option>
+  </select>
+  <div id="chatBox"></div>
+  <input type="text" id="userInput" placeholder="Ask something..."/>
+  <button onclick="send()">Send</button>
+  <a href="dashboard.html">← Back</a>
+
+  <script>
+    function send() {
+      const input = document.getElementById("userInput").value;
+      const mind = document.getElementById("mindSelect").value;
+      let reply = "";
+
+      if (mind === "Tesla") {
+        reply = `Energy flows where attention goes. Think in frequency: "${input}".`;
+      } else if (mind === "Jesus") {
+        reply = `He who asks: "${input}", let him understand — for the truth sets you free.`;
+      } else if (mind === "Maxwell") {
+        reply = `Symbolically speaking: "${input}" carries encoded legal power.`;
+      } else if (mind === "Rogan") {
+        reply = `Okay, let's unpack that. "${input}" — have you ever thought about how deep that actually goes?`;
+      } else if (mind === "Jones") {
+        reply = `I'm telling you — "${input}" — that's the kind of thing they don't want you talking about. It's real, it's happening.`;
+      } else if (mind === "Einstein") {
+        reply = `In the realm of relativity, your thought "${input}" suggests a curvature in conceptual space-time.`;
+      }
+
+      const p = document.createElement("p");
+      p.innerText = `[${mind}] ${reply}`;
+      document.getElementById("chatBox").appendChild(p);
+      document.getElementById("userInput").value = "";
+    }
+  </script>
+</body>
+</html>
