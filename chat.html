@@ -1,1 +1,22 @@
-<!-- Secure AI chat frontend placeholder -->
+<script>
+async function sendToHive() {
+  const input = document.getElementById("userInput").value;
+  document.getElementById("response").innerText = "Contacting the Hive...";
+  try {
+    const res = await fetch(
+      "https://echo.free.beeceptor.com/post", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: input })
+      }
+    );
+    const data = await res.json();
+    document.getElementById("response").innerText = 
+      "✅ System OK. Received:\n" +
+      JSON.stringify(data.parsedBody || data, null, 2);
+  } catch (err) {
+    document.getElementById("response").innerText = "❌ Communication failed (check console)";
+    console.error(err);
+  }
+}
+</script><!-- Secure AI chat frontend placeholder -->
