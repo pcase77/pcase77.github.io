@@ -1,44 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8" />
-  <title>Project Red Pill - Login</title>
-  <style>
-    body {
-      background-color: #0f0f0f;
-      color: #00ff00;
-      font-family: monospace;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-    }
-    input, button {
-      margin: 10px;
-      padding: 10px;
-      font-size: 16px;
-      background: black;
-      color: #00ff00;
-      border: 1px solid #00ff00;
-    }
-    .tier-btn {
-      width: 300px;
-    }
-    .tooltip {
-      font-size: 12px;
-      color: #00ff88;
-      margin-top: -5px;
-      margin-bottom: 15px;
-      width: 350px;
-    }
-  </style>
+  <title>Red Pill Hive - Login</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Welcome to Project Red Pill</h1>
-  <p>Select your access tier or enter passphrase to proceed:</p>
-
-  <a href="https://pcase.gumroad.com/l/mqbat" class="tier-button">$5 – Truth Seeker</a>
-<a href="https://pcase.gumroad.com/l/mqbat" class="tier-button">$15 – Decoder</a>
-<a href="https://pcase.gumroad.com/l/mqbat" class="tier-button">$30 – Architect Access</a>
+  <div class="container">
+    <h1>Enter Hive</h1>
+    <input type="password" placeholder="Enter Passphrase" id="passphrase">
+    <button onclick="checkPass()">Unlock</button>
+    <p><a href="https://pcase.gumroad.com">Subscribe to Unlock Access</a></p>
+  </div>
+  <script>
+    function checkPass() {
+      const code = document.getElementById('passphrase').value;
+      if(code === "vault-echo-4273") {
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Incorrect passphrase.");
+      }
+    }
+  </script>
+</body>
+</html>
