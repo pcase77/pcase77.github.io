@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Vault Review Queue</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #00ff00;
+      font-family: monospace;
+      padding: 20px;
+    }
+    .entry {
+      border: 1px solid #00ff00;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    button {
+      margin: 5px;
+      padding: 5px 10px;
+      font-size: 14px;
+      background-color: black;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      cursor: pointer;
+    }
+    h2 {
+      color: #00ffcc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Vault Peer Vetting (Tier 2+ Only)</h1>
+  <div id="reviewList">Loading submissions...</div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBPbL1zmbEpyBKcxJMjreuqlfteRl6qjjk",
+      authDomain: "redpill-hive.firebaseapp.com",
+      databaseURL: "https://redpill-hive-default-rtdb.firebaseio.com/",
+      projectId: "redpill-hive",
+      storageBucket: "redpill-hive.appspot.com",
+      messagingSenderId: "870856030107",
+      appId: "1:870856030107:web:8ddc614be76c64a21a133e",
+      measurementId: "G-LM2T58WTG6"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    const reviewList = document.getElementById("reviewList");
+
+    db.ref("vault_submissions").orderByChild("status").equalTo("pending").on("value", snapshot => {
+      reviewList.innerHTML = "";
+      snapshot.forEach(child => {
+        const data = child.val();
+        const div = document.createElement("div");
+        div.className = "entry";
+        div.innerHTML = `
+          <h2>${data.title}</h2>
+          <p><strong>Author:</strong> ${data.author}</p>
+          <p>${data.content}</p>
+          <p><strong>Tags:</strong> ${data.tags.join(", ")}</p>
+          <button onclick="updateStatus('${child.key}', 'approved')">✅ Approve</button>
+          <button onclick="updateStatus('${child.key}', 'rejected')">❌ Reject</button>
+        `;
+        reviewList.appendChild(div);
+      });
+    });
+
+    function updateStatus(key, status) {
+      db.ref("vault_submissions/" + key).update({ status });
+    }
+  </script>
+</body>
+</html>

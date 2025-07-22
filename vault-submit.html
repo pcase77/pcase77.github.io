@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Submit to the Truth Vault</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #00ff00;
+      font-family: monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    input, textarea, button {
+      margin: 10px;
+      padding: 10px;
+      font-size: 16px;
+      width: 80%;
+      max-width: 600px;
+      background: black;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+    }
+    label {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Submit Your Theory to the Vault</h1>
+  <label>Title:</label>
+  <input type="text" id="title" placeholder="Conspiracy Title" />
+  <label>Author (Handle):</label>
+  <input type="text" id="author" placeholder="Your Codename" />
+  <label>Content:</label>
+  <textarea id="content" rows="8" placeholder="Enter your theory..."></textarea>
+  <label>Tags (comma separated):</label>
+  <input type="text" id="tags" placeholder="Example: Tesla, Time Travel, HAARP" />
+  <button onclick="submitEntry()">Submit</button>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBPbL1zmbEpyBKcxJMjreuqlfteRl6qjjk",
+      authDomain: "redpill-hive.firebaseapp.com",
+      databaseURL: "https://redpill-hive-default-rtdb.firebaseio.com/",
+      projectId: "redpill-hive",
+      storageBucket: "redpill-hive.appspot.com",
+      messagingSenderId: "870856030107",
+      appId: "1:870856030107:web:8ddc614be76c64a21a133e",
+      measurementId: "G-LM2T58WTG6"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    function submitEntry() {
+      const title = document.getElementById("title").value.trim();
+      const author = document.getElementById("author").value.trim();
+      const content = document.getElementById("content").value.trim();
+      const tags = document.getElementById("tags").value.trim().split(",");
+
+      if (!title || !author || !content) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      const newEntry = {
+        title,
+        author,
+        content,
+        tags,
+        timestamp: Date.now(),
+        status: "pending"
+      };
+
+      db.ref("vault_submissions").push(newEntry)
+        .then(() => {
+          alert("Submission sent! Awaiting peer vetting.");
+          document.getElementById("title").value = "";
+          document.getElementById("author").value = "";
+          document.getElementById("content").value = "";
+          document.getElementById("tags").value = "";
+        })
+        .catch((error) => {
+          alert("Error: " + error.message);
+        });
+    }
+  </script>
+</body>
+</html>
