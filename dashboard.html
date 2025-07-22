@@ -1,35 +1,40 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Project Red Pill Dashboard</title>
+  <title>Project Red Pill Hive</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body { background-color: #000; color: #00ffcc; font-family: monospace; padding: 20px; }
-    .section { border: 2px solid #00ffcc; padding: 20px; margin-bottom: 20px; }
-    .title { font-size: 24px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-    th, td { border: 1px solid #00ffcc; padding: 8px; text-align: left; }
-    th { background-color: #003333; }
+    body {
+      background-color: black;
+      color: #00ffcc;
+      font-family: monospace;
+      padding: 20px;
+    }
+    .mind-overlay {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      width: 100px;
+      height: 100px;
+      background: url('assets/tesla_overlay.png') no-repeat center center;
+      background-size: contain;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.5; }
+      50% { opacity: 1; }
+      100% { opacity: 0.5; }
+    }
+    .mobile {
+      font-size: 1.2em;
+    }
   </style>
 </head>
 <body>
-  <div class="section">
-    <div class="title">🤖 Hive AI Summary & Vault Analytics</div>
-    <h3>🔥 AI Weekly Theory Summary</h3>
-    <ul>
-      <li>🛸 UFO sightings spike globally as AI cross-references weather balloons</li>
-      <li>💉 Sudden pharmaceutical leaks link trials to behavioral compliance studies</li>
-      <li>🎭 Predictive programming timeline mapped across 3 major Hollywood films</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <h3>📊 Vault Submission Stats</h3>
-    <table>
-      <tr><th>Author</th><th>Upvotes</th><th>Status</th><th>Tags</th></tr>
-      <tr><td>AnonymousX</td><td>52</td><td>Reviewed</td><td>5G, Agenda 2030</td></tr>
-      <tr><td>TruthSeeker77</td><td>41</td><td>Pending</td><td>Mind Control, PsyOps</td></tr>
-      <tr><td>AgentZ</td><td>33</td><td>Flagged</td><td>Geoengineering, Censorship</td></tr>
-    </table>
-  </div>
+  <div class="mind-overlay" title="Tesla View Active"></div>
+  <h1 class="mobile">🔮 Project Red Pill - Phase 24</h1>
+  <p>Welcome to the Hive. Mind overlay interface is live.</p>
+  <p><a href="chat.html">Enter AI Chat Terminal</a></p>
 </body>
 </html>
