@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Submit to Vault</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="firebase.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Submit Vault Entry</h1>
+    <textarea id="vaultEntry" placeholder="Type your theory or finding..."></textarea>
+    <button onclick="submitVault()">Submit</button>
+    <p id="status"></p>
+  </div>
+  <script>
+    function submitVault() {
+      const entry = document.getElementById('vaultEntry').value;
+      const ref = firebase.database().ref("vault");
+      ref.push({ entry: entry });
+      document.getElementById('status').innerText = "Submitted successfully!";
+      document.getElementById('vaultEntry').value = "";
+    }
+  </script>
+</body>
+</html>

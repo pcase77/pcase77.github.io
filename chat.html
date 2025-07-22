@@ -1,1 +1,34 @@
-<!DOCTYPE html><html><head><title>AI Chat</title></head><body><h1>Chat with the Minds</h1></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hive Chat</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Ask the Hive AI</h1>
+    <textarea id="userInput" placeholder="Ask anything..."></textarea><br>
+    <button onclick="respond()">Ask</button>
+    <div id="responseArea"></div>
+  </div>
+  <script>
+    async function respond() {
+      const input = document.getElementById("userInput").value;
+      const res = await fetch("https://api.openai.com/v1/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer YOUR_OPENAI_API_KEY"
+        },
+        body: JSON.stringify({
+          model: "text-davinci-003",
+          prompt: input,
+          max_tokens: 100
+        })
+      });
+      const data = await res.json();
+      document.getElementById("responseArea").innerText = data.choices[0].text.trim();
+    }
+  </script>
+</body>
+</html>
