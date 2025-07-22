@@ -1,19 +1,103 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Hive Dashboard</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Hive AI Feed & Vault Analytics</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #00ff00;
+      font-family: monospace;
+      padding: 20px;
+    }
+    h1 {
+      color: #00ffcc;
+    }
+    .summary, .analytics {
+      border: 1px solid #00ff00;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    .analytics table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .analytics th, .analytics td {
+      border: 1px solid #00ff00;
+      padding: 8px;
+    }
+    .analytics th {
+      background-color: #001100;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Welcome to Project Red Pill</h1>
-    <nav>
-      <a href="vault.html">📜 Truth Vault</a> |
-      <a href="chat.html">💬 Hive Chat</a> |
-      <a href="submit.html">📤 Submit Vault Entry</a> |
-      <a href="profile.html">👤 Profile</a> |
-      <a href="https://pcase.gumroad.com/l/mqbat">Upgrade</a>
-    </nav>
+  <h1>🤖 Hive AI Summary & Vault Analytics</h1>
+
+  <div class="summary">
+    <h2>🔥 AI Weekly Theory Summary</h2>
+    <ul id="summaryList">Loading...</ul>
   </div>
+
+  <div class="analytics">
+    <h2>📊 Vault Submission Stats</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Author</th>
+          <th>Upvotes</th>
+          <th>Status</th>
+          <th>Tags</th>
+        </tr>
+      </thead>
+      <tbody id="analyticsTable">Loading...</tbody>
+    </table>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBPbL1zmbEpyBKcxJMjreuqlfteRl6qjjk",
+      authDomain: "redpill-hive.firebaseapp.com",
+      databaseURL: "https://redpill-hive-default-rtdb.firebaseio.com/",
+      projectId: "redpill-hive",
+      storageBucket: "redpill-hive.appspot.com",
+      messagingSenderId: "870856030107",
+      appId: "1:870856030107:web:8ddc614be76c64a21a133e",
+      measurementId: "G-LM2T58WTG6"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    const summaryList = document.getElementById("summaryList");
+    const analyticsTable = document.getElementById("analyticsTable");
+
+    db.ref("vault_submissions").orderByChild("timestamp").limitToLast(10).once("value", snapshot => {
+      summaryList.innerHTML = "";
+      snapshot.forEach(child => {
+        const d = child.val();
+        const li = document.createElement("li");
+        li.textContent = `${d.title} — Tags: ${d.tags?.join(", ")}`;
+        summaryList.appendChild(li);
+      });
+    });
+
+    db.ref("vault_submissions").once("value", snapshot => {
+      analyticsTable.innerHTML = "";
+      snapshot.forEach(child => {
+        const d = child.val();
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${d.author || "Unknown"}</td>
+          <td>${d.upvotes || 0}</td>
+          <td>${d.status}</td>
+          <td>${d.tags?.join(", ") || ""}</td>
+        `;
+        analyticsTable.appendChild(row);
+      });
+    });
+  </script>
 </body>
 </html>
