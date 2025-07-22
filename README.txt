@@ -1,5 +1,6 @@
-Project Red Pill Hive - Phase 1 (Free Deployment)
-1. Upload all files to GitHub Pages or any static host.
-2. Default passphrase is: vault-echo-4273
-3. Link your Gumroad to the index.html subscribe button.
-4. Optional: Connect portablepi.crypto to your GitHub Pages domain.
+Project Red Pill Hive - Phase 2 Upgrade
+Includes: Login, Dashboard, Vault View + Submission (Firebase), AI Chat, Profile, ConvertKit-ready.
+Steps:
+1. Replace YOUR_OPENAI_API_KEY and Firebase keys.
+2. Upload to GitHub Pages.
+3. Link to portablepi.crypto after final test.

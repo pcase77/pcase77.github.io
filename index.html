@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Red Pill Hive - Login</title>
+  <title>Project Red Pill - Login</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>Enter Hive</h1>
-    <input type="password" placeholder="Enter Passphrase" id="passphrase">
-    <button onclick="checkPass()">Unlock</button>
-    <p><a href="https://pcase.gumroad.com">Subscribe to Unlock Access</a></p>
-  </div><a href="https://pcase.gumroad.com/l/mqbat" class="tier-button">$5 – Truth Seeker</a>
-<a href="https://pcase.gumroad.com/l/mqbat" class="tier-button">$15 – Decoder</a>
-<a href="https://pcase.gumroad.com/l/mqbat" class="tier-button">$30 – Architect Access</a>
+    <h1>Welcome to Project Red Pill</h1>
+    <p>Select your access tier or enter passphrase to proceed:</p>
+    <a href="https://pcase.gumroad.com/l/mqbat" class="tier-button">$5 – Truth Seeker</a>
+    <a href="https://pcase.gumroad.com/l/mqbat" class="tier-button">$15 – Decoder</a>
+    <a href="https://pcase.gumroad.com/l/mqbat" class="tier-button">$30 – Architect Access</a>
+    <input type="password" id="passphrase" placeholder="Enter passphrase...">
+    <button onclick="checkPass()">Unlock 🔓</button>
+  </div>
   <script>
     function checkPass() {
       const code = document.getElementById('passphrase').value;
