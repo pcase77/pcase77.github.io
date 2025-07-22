@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tesla Terminal</title>
+  <style>
+    body { background-color: black; color: #00ffcc; font-family: monospace; padding: 20px; }
+    .terminal-box { border: 1px solid #00ffcc; padding: 10px; }
+    .mind-selector { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>⚡ Tesla Terminal: Quantum Interface</h1>
+  <div class="terminal-box" id="terminalOutput">
+    >> Welcome to Tesla Terminal... Awaiting input...
+  </div>
+  <div class="mind-selector">
+    <label for="mindSelect">Active Mind Filter:</label>
+    <select id="mindSelect">
+      <option value="tesla">Nikola Tesla</option>
+      <option value="jesus">Jesus Christ</option>
+      <option value="einstein">Albert Einstein</option>
+      <option value="maxwell">Jordan Maxwell</option>
+      <option value="rogan">Joe Rogan</option>
+      <option value="jones">Alex Jones</option>
+    </select>
+  </div>
+  <script>
+    const terminal = document.getElementById("terminalOutput");
+    const mindSelect = document.getElementById("mindSelect");
+    mindSelect.addEventListener("change", () => {
+      const mind = mindSelect.value;
+      terminal.innerHTML += `<br>> Switched to ${mind.toUpperCase()} mode... Loading wisdom...`;
+    });
+  </script>
+</body>
+</html>
