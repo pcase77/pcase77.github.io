@@ -1,11 +1,9 @@
-// Replace with your actual Firebase config
 const firebaseConfig = {
-  apiKey: "YOUR_FIREBASE_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "SENDER_ID",
-  appId: "APP_ID"
+  apiKey: "AIza...yourKey",
+  authDomain: "redpill-hive.firebaseapp.com",
+  databaseURL: "https://redpill-hive-default-rtdb.firebaseio.com",  // ← must be present
+  projectId: "redpill-hive",
+  storageBucket: "...",
+  messagingSenderId: "...",
+  appId: "...",
 };
-firebase.initializeApp(firebaseConfig);
