@@ -1,103 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Hive AI Feed & Vault Analytics</title>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <title>Project Red Pill Dashboard</title>
   <style>
-    body {
-      background-color: #0f0f0f;
-      color: #00ff00;
-      font-family: monospace;
-      padding: 20px;
-    }
-    h1 {
-      color: #00ffcc;
-    }
-    .summary, .analytics {
-      border: 1px solid #00ff00;
-      padding: 15px;
-      margin-bottom: 20px;
-    }
-    .analytics table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .analytics th, .analytics td {
-      border: 1px solid #00ff00;
-      padding: 8px;
-    }
-    .analytics th {
-      background-color: #001100;
-    }
+    body { background-color: #000; color: #00ffcc; font-family: monospace; padding: 20px; }
+    .section { border: 2px solid #00ffcc; padding: 20px; margin-bottom: 20px; }
+    .title { font-size: 24px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #00ffcc; padding: 8px; text-align: left; }
+    th { background-color: #003333; }
   </style>
 </head>
 <body>
-  <h1>🤖 Hive AI Summary & Vault Analytics</h1>
-
-  <div class="summary">
-    <h2>🔥 AI Weekly Theory Summary</h2>
-    <ul id="summaryList">Loading...</ul>
+  <div class="section">
+    <div class="title">🤖 Hive AI Summary & Vault Analytics</div>
+    <h3>🔥 AI Weekly Theory Summary</h3>
+    <ul>
+      <li>🛸 UFO sightings spike globally as AI cross-references weather balloons</li>
+      <li>💉 Sudden pharmaceutical leaks link trials to behavioral compliance studies</li>
+      <li>🎭 Predictive programming timeline mapped across 3 major Hollywood films</li>
+    </ul>
   </div>
 
-  <div class="analytics">
-    <h2>📊 Vault Submission Stats</h2>
+  <div class="section">
+    <h3>📊 Vault Submission Stats</h3>
     <table>
-      <thead>
-        <tr>
-          <th>Author</th>
-          <th>Upvotes</th>
-          <th>Status</th>
-          <th>Tags</th>
-        </tr>
-      </thead>
-      <tbody id="analyticsTable">Loading...</tbody>
+      <tr><th>Author</th><th>Upvotes</th><th>Status</th><th>Tags</th></tr>
+      <tr><td>AnonymousX</td><td>52</td><td>Reviewed</td><td>5G, Agenda 2030</td></tr>
+      <tr><td>TruthSeeker77</td><td>41</td><td>Pending</td><td>Mind Control, PsyOps</td></tr>
+      <tr><td>AgentZ</td><td>33</td><td>Flagged</td><td>Geoengineering, Censorship</td></tr>
     </table>
   </div>
-
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBPbL1zmbEpyBKcxJMjreuqlfteRl6qjjk",
-      authDomain: "redpill-hive.firebaseapp.com",
-      databaseURL: "https://redpill-hive-default-rtdb.firebaseio.com/",
-      projectId: "redpill-hive",
-      storageBucket: "redpill-hive.appspot.com",
-      messagingSenderId: "870856030107",
-      appId: "1:870856030107:web:8ddc614be76c64a21a133e",
-      measurementId: "G-LM2T58WTG6"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    const summaryList = document.getElementById("summaryList");
-    const analyticsTable = document.getElementById("analyticsTable");
-
-    db.ref("vault_submissions").orderByChild("timestamp").limitToLast(10).once("value", snapshot => {
-      summaryList.innerHTML = "";
-      snapshot.forEach(child => {
-        const d = child.val();
-        const li = document.createElement("li");
-        li.textContent = `${d.title} — Tags: ${d.tags?.join(", ")}`;
-        summaryList.appendChild(li);
-      });
-    });
-
-    db.ref("vault_submissions").once("value", snapshot => {
-      analyticsTable.innerHTML = "";
-      snapshot.forEach(child => {
-        const d = child.val();
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${d.author || "Unknown"}</td>
-          <td>${d.upvotes || 0}</td>
-          <td>${d.status}</td>
-          <td>${d.tags?.join(", ") || ""}</td>
-        `;
-        analyticsTable.appendChild(row);
-      });
-    });
-  </script>
 </body>
 </html>
