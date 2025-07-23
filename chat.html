@@ -3,40 +3,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hive Secure AI Chat</title>
+  <title>Project Red Pill: Hive AI Terminal</title>
   <style>
-    body { background: #000; color: #0f0; font-family: monospace; padding: 20px; }
-    input, button {
-      background: #000; color: #0f0; border: 1px solid #0f0;
-      padding: 10px; margin: 10px 0; width: 100%;
+    body {
+      background-color: black;
+      color: lime;
+      font-family: monospace;
+      padding: 20px;
     }
-    #response { margin-top: 20px; white-space: pre-wrap; border-top: 1px solid #0f0; padding-top: 10px; }
+    input, button {
+      background-color: black;
+      color: lime;
+      border: 1px solid lime;
+      padding: 10px;
+      width: 90%;
+    }
+    #responseBox {
+      margin-top: 20px;
+      white-space: pre-wrap;
+    }
   </style>
 </head>
 <body>
   <h1>🧠 Project Red Pill: Hive AI Terminal</h1>
-  <input id="userInput" type="text" placeholder="Ask the Hive..." />
-  <button onclick="sendToHive()">Send</button>
-  <div id="response">Awaiting input...</div>
+  <input id="userInput" placeholder="Ask the Hive anything..." />
+  <button onclick="sendMessage()">Send</button>
+  <div id="responseBox">Awaiting your inquiry...</div>
 
   <script>
-    async function sendToHive() {
-      const input = document.getElementById("userInput").value;
-      const responseBox = document.getElementById("response");
-      responseBox.innerText = "Thinking...";
+    async function sendMessage() {
+      const input = document.getElementById("userInput");
+      const userMessage = input.value.trim();
+      if (!userMessage) return;
+
+      const responseBox = document.getElementById("responseBox");
+      responseBox.innerText = "Connecting to the Hive...";
 
       try {
-        const res = await fetch("https://your-backend-url/api/chat", {
+        const response = await fetch("https://mind-matrix-pro-pcase818.replit.app/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: input })
+          body: JSON.stringify({ message: userMessage }),
         });
-        const data = await res.json();
-        responseBox.innerText = "🧠 Hive: " + data.reply;
-      } catch (error) {
+
+        const data = await response.json();
+        responseBox.innerText = data.reply || "No response from the Hive.";
+      } catch (err) {
         responseBox.innerText = "❌ Hive connection failed.";
-        console.error(error);
+        console.error(err);
       }
+
+      input.value = "";
     }
   </script>
 </body>
