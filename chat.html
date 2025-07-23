@@ -1,22 +1,43 @@
-<script>
-async function sendToHive() {
-  const input = document.getElementById("userInput").value;
-  document.getElementById("response").innerText = "Contacting the Hive...";
-  try {
-    const res = await fetch(
-      "https://echo.free.beeceptor.com/post", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: input })
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hive Secure AI Chat</title>
+  <style>
+    body { background: #000; color: #0f0; font-family: monospace; padding: 20px; }
+    input, button {
+      background: #000; color: #0f0; border: 1px solid #0f0;
+      padding: 10px; margin: 10px 0; width: 100%;
+    }
+    #response { margin-top: 20px; white-space: pre-wrap; border-top: 1px solid #0f0; padding-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>🧠 Project Red Pill: Hive AI Terminal</h1>
+  <input id="userInput" type="text" placeholder="Ask the Hive..." />
+  <button onclick="sendToHive()">Send</button>
+  <div id="response">Awaiting input...</div>
+
+  <script>
+    async function sendToHive() {
+      const input = document.getElementById("userInput").value;
+      const responseBox = document.getElementById("response");
+      responseBox.innerText = "Thinking...";
+
+      try {
+        const res = await fetch("https://your-backend-url/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: input })
+        });
+        const data = await res.json();
+        responseBox.innerText = "🧠 Hive: " + data.reply;
+      } catch (error) {
+        responseBox.innerText = "❌ Hive connection failed.";
+        console.error(error);
       }
-    );
-    const data = await res.json();
-    document.getElementById("response").innerText = 
-      "✅ System OK. Received:\n" +
-      JSON.stringify(data.parsedBody || data, null, 2);
-  } catch (err) {
-    document.getElementById("response").innerText = "❌ Communication failed (check console)";
-    console.error(err);
-  }
-}
-</script><!-- Secure AI chat frontend placeholder -->
+    }
+  </script>
+</body>
+</html>
